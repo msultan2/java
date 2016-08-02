@@ -17,10 +17,12 @@ public final class MyFileExecutor {
     new FileGenerator().generateFile(file);
     MyFile.processStringsFromFile(file);
 
+    Path file1 = Paths.get("eam.txt");
+    Path file2 = Paths.get("eam2.txt");
     try {
-      FileWriterEAM.use("eam.txt", writerEAM -> writerEAM.writeStuff("sweet"));
+      FileWriterEAM.use(file1, writerEAM -> writerEAM.writeStuff("sweet"));
 
-      FileWriterEAM.use("eam2.txt", writerEAM -> {
+      FileWriterEAM.use(file2, writerEAM -> {
         writerEAM.writeStuff("how");
         writerEAM.writeStuff("sweet");
       });

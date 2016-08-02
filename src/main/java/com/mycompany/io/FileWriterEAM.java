@@ -4,18 +4,20 @@
  */
 package com.mycompany.io;
 
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Implements the execute around method (EAM) pattern.
  */
 public final class FileWriterEAM implements AutoCloseable {
 
-  private final FileWriter writer;
+  private final Writer writer;
 
-  private FileWriterEAM(final String fileName) throws IOException {
-    writer = new FileWriter(fileName);
+  private FileWriterEAM(final Path file) throws IOException {
+    writer = Files.newBufferedWriter(file);
   }
 
   @Override
@@ -28,9 +30,9 @@ public final class FileWriterEAM implements AutoCloseable {
     writer.write(message);
   }
 
-  public static void use(final String fileName, final UseInstance<FileWriterEAM, IOException> block)
-      throws IOException {
-    try (FileWriterEAM writerEAM = new FileWriterEAM(fileName)) {
+  public static void use(final Path file, final UseInstance<FileWriterEAM, IOException> block)
+          throws IOException {
+    try (FileWriterEAM writerEAM = new FileWriterEAM(file)) {
       block.accept(writerEAM);
     }
   }
