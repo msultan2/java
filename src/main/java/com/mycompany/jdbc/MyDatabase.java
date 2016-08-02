@@ -408,9 +408,8 @@ public class MyDatabase {
   }
 
   public void demonstrateTransactionUsingSavepoints() {
-    try (Connection conn = pool.getDatabaseConnection()) {
-      conn.setAutoCommit(false);
-      Statement stmt = conn.createStatement();
+    try (Connection conn = getDatabaseConnectionWithAutoCommitDisabled();
+            Statement stmt = conn.createStatement()) {
       String query1 = "INSERT INTO Discount_Code VALUES ('O', 1.00)";
       String query2 = "INSERT INTO Discount_Code VALUES ('P', 2.00)";
       Savepoint sp1 = null;
@@ -440,6 +439,12 @@ public class MyDatabase {
     } catch (SQLException ex) {
       logSQLException(ex);
     }
+  }
+
+  private Connection getDatabaseConnectionWithAutoCommitDisabled() throws SQLException {
+    Connection conn = pool.getDatabaseConnection();
+    conn.setAutoCommit(false);
+    return conn;
   }
 
 }
