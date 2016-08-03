@@ -102,6 +102,10 @@
         <module name="IllegalImport"/>
         <module name="IllegalThrows"/>
         <module name="IllegalTokenText"/>
+        <!-- Matches default NetBeans formatter configuration -->
+        <module name="ImportOrder">
+          <property name="option" value="inflow"/>
+        </module>
         <module name="Indentation">
             <property name="basicOffset" value="2"/>
             <property name="throwsIndent" value="4"/>

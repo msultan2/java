@@ -13,10 +13,10 @@ import java.util.List;
 import static org.apache.commons.io.FileUtils.contentEquals;
 import org.apache.commons.net.ftp.FTPFile;
 import org.junit.After;
-import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 public class MyFTPClientTest {
