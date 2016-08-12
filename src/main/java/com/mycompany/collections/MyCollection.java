@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2016 Company.
-  * All rights reserved.
+ * All rights reserved.
  */
 package com.mycompany.collections;
 
