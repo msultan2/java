@@ -8,4 +8,4 @@ pipelines:
         script: # Modify the commands below to build your repository.     
           - mvn --version
           - mvn -T 1C -B clean install
-          - mvn versions:display-dependency-updates
+          - mvn -B versions:display-dependency-updates
