@@ -13,6 +13,8 @@ public final class JdbcLauncher {
 
   public static void main(final String[] args) {
     // Always start derby database first in order to connect
+    // or if running for the first time
+    // Netbeans -> Services -> Databases -> Java DB -> Create Sample Database...: sample
     DatabaseParameters parameters =
         new DatabaseParameters.Builder("jdbc:derby://localhost:1527/sample", "app", "app").build();
     MyDatabase db = new MyDatabase(parameters);
@@ -29,6 +31,7 @@ public final class JdbcLauncher {
     db.workWithRowSet();
     db.demonstrateTransaction();
     db.demonstrateTransactionUsingSavepoints();
+    db.getPoolingDriverInfo();
   }
 
 }

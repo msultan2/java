@@ -447,4 +447,8 @@ public class MyDatabase {
     return conn;
   }
 
+  public void getPoolingDriverInfo() {
+    System.out.println("Pool info: " + pool.getPoolInfo());
+  }
+
 }

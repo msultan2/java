@@ -11,4 +11,6 @@ public interface DatabaseConnectionPool {
 
   Connection getDatabaseConnection() throws SQLException;
 
+  String getPoolInfo();
+
 }

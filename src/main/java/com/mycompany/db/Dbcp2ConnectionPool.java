@@ -16,9 +16,10 @@ import org.apache.commons.pool2.impl.GenericObjectPool;
 
 public class Dbcp2ConnectionPool implements DatabaseConnectionPool {
 
-  private static final String CONNECTION_POOL_NAME = "pool1";
-  private static final String CONNECTION_POOL_URL = "jdbc:apache:commons:dbcp:"
-      + CONNECTION_POOL_NAME;
+  private static final String CONNECTION_POOL_NAME = "DBCP2Pool-1";
+  private static final String CONNECTION_POOL_URL = "jdbc:apache:commons:dbcp:" + CONNECTION_POOL_NAME;
+
+  private PoolingDriver driver;
 
   public Dbcp2ConnectionPool(final DatabaseParameters parameters) {
     createPoolingDriver(parameters);
@@ -44,13 +45,18 @@ public class Dbcp2ConnectionPool implements DatabaseConnectionPool {
         new PoolableConnectionFactory(connectionFactory, null);
     ObjectPool connectionPool = new GenericObjectPool(poolableConnectionFactory);
     poolableConnectionFactory.setPool(connectionPool);
-    PoolingDriver driver = new PoolingDriver();
+    this.driver = new PoolingDriver();
     driver.registerPool(CONNECTION_POOL_NAME, connectionPool);
   }
 
   @Override
   public Connection getDatabaseConnection() throws SQLException {
     return DriverManager.getConnection(Dbcp2ConnectionPool.CONNECTION_POOL_URL);
+  }
+
+  @Override
+  public String getPoolInfo() {
+    return CONNECTION_POOL_NAME;
   }
 
 }
