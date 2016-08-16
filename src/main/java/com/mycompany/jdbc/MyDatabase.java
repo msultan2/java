@@ -38,7 +38,7 @@ public class MyDatabase {
     this.url = parameters.getURL();
     this.username = parameters.getUsername();
     this.password = parameters.getPassword();
-    this.pool = new DatabaseConnectionPool(parameters);
+    this.pool = new Dbcp2ConnectionPool(parameters);
   }
 
   public void submitQueriesAndReadResults() {
