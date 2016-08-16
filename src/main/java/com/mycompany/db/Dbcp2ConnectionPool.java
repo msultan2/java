@@ -2,7 +2,7 @@
  * Copyright (c) 2016 Company.
  * All rights reserved.
  */
-package com.mycompany.jdbc;
+package com.mycompany.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

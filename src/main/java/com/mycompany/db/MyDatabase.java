@@ -2,9 +2,9 @@
  * Copyright (c) 2016 Company.
  * All rights reserved.
  */
-package com.mycompany.jdbc;
+package com.mycompany.db;
 
-import static com.mycompany.jdbc.MyDatabaseLogger.*;
+import static com.mycompany.db.MyDatabaseLogger.*;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
