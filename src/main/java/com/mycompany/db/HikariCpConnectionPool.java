@@ -26,8 +26,6 @@ public class HikariCpConnectionPool implements DatabaseConnectionPool {
    * maximumPoolSize: 10
    * poolName: auto-generated
    * ... other infrequently used
-   *
-   * @param dbParameters
    */
   public HikariCpConnectionPool(final DatabaseParameters dbParameters) {
     ds = new HikariDataSource();
