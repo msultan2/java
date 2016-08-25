@@ -21,8 +21,8 @@ public class Dbcp2ConnectionPool implements DatabaseConnectionPool {
 
   private PoolingDriver driver;
 
-  public Dbcp2ConnectionPool(final DatabaseParameters parameters) {
-    createPoolingDriver(parameters);
+  public Dbcp2ConnectionPool(final String jdbcUrl, final String username, final String password) {
+    createPoolingDriver(jdbcUrl, username, password);
   }
 
   /**
@@ -37,10 +37,8 @@ public class Dbcp2ConnectionPool implements DatabaseConnectionPool {
    *
    * Note: DBCP 2 compiles and runs under Java 7 only (JDBC 4.1).
    */
-  private void createPoolingDriver(final DatabaseParameters parameters) {
-    ConnectionFactory connectionFactory =
-        new DriverManagerConnectionFactory(parameters.getURL(), parameters.getUsername(),
-            parameters.getPassword());
+  private void createPoolingDriver(final String jdbcUrl, final String username, final String password) {
+    ConnectionFactory connectionFactory = new DriverManagerConnectionFactory(jdbcUrl, username, password);
     PoolableConnectionFactory poolableConnectionFactory =
         new PoolableConnectionFactory(connectionFactory, null);
     ObjectPool connectionPool = new GenericObjectPool(poolableConnectionFactory);

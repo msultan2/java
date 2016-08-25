@@ -27,11 +27,11 @@ public class HikariCpConnectionPool implements DatabaseConnectionPool {
    * poolName: auto-generated
    * ... other infrequently used
    */
-  public HikariCpConnectionPool(final DatabaseParameters dbParameters) {
+  public HikariCpConnectionPool(final String jdbcUrl, final String username, final String password) {
     ds = new HikariDataSource();
-    ds.setJdbcUrl(dbParameters.getURL());
-    ds.setUsername(dbParameters.getUsername());
-    ds.setPassword(dbParameters.getPassword());
+    ds.setJdbcUrl(jdbcUrl);
+    ds.setUsername(username);
+    ds.setPassword(password);
   }
 
   @Override

@@ -12,26 +12,21 @@ public final class JdbcLauncher {
   private JdbcLauncher() {}
 
   public static void main(final String[] args) {
-    // Always start derby database first in order to connect
-    // or if running for the first time
-    // Netbeans -> Services -> Databases -> Java DB -> Create Sample Database...: sample
-    DatabaseParameters parameters =
-        new DatabaseParameters.Builder("jdbc:derby://localhost:1527/sample", "app", "app").build();
-    MyDatabase db = new MyDatabase(parameters);
-
-    db.submitQueriesAndReadResults();
-    db.constructAndUseStatement();
-    db.getInformationAboutResultSet();
-    db.printReport();
-    db.moveAroundResultSets();
-    db.demonstrateGetRowCount();
-    db.updateResultSet();
-    db.getInformationAboutDatabase();
-    db.usePreparedStatement();
-    db.workWithRowSet();
-    db.demonstrateTransaction();
-    db.demonstrateTransactionUsingSavepoints();
-    db.getPoolingDriverInfo();
+    Database.DERBY.submitQueryAndGetResult("SELECT * FROM Customer WHERE NAME LIKE 'Bob Hosting Corp.'");
+    /*
+    Database.DERBY.constructAndUseStatement();
+    Database.DERBY.getInformationAboutResultSet();
+    Database.DERBY.printReport();
+    Database.DERBY.moveAroundResultSets();
+    Database.DERBY.demonstrateGetRowCount();
+    Database.DERBY.updateResultSet();
+    Database.DERBY.getInformationAboutDatabase();
+    Database.DERBY.usePreparedStatement();
+    Database.DERBY.workWithRowSet();
+    Database.DERBY.demonstrateTransaction();
+    Database.DERBY.demonstrateTransactionUsingSavepoints();
+    Database.DERBY.getPoolingDriverInfo();
+     */
   }
 
 }

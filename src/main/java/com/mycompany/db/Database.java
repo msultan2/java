@@ -17,80 +17,82 @@ import javax.sql.rowset.JdbcRowSet;
 import javax.sql.rowset.RowSetProvider;
 
 /**
- * From OCA/OCP Java SE7 Programmer 1 & 2 Study Guide, Chapter 15: JDBC.
+ * Always start derby database in order to use!
+ *
+ * NetBeans -> Services -> Databases -> right click jdbc:derby://localhost:1527/sample, Connect...
+ *
+ * Uses Database Connection Pool internally.
+ *
+ * More info: OCA/OCP Java SE7 Programmer 1 & 2 Study Guide, Chapter 15: JDBC.
+ *
  */
-public class MyDatabase {
+public enum Database {
+
+  DERBY("jdbc:derby://localhost:1527/sample", "app", "app");
 
   private final String url;
   private final String username;
   private final String password;
   private final DatabaseConnectionPool pool;
 
-  /**
-   * Always start derby database first in order to connect: NetBeans -> Services -> Databases ->
-   * right click jdbc:derby://localhost:1527/sample, Connect...
-   * 
-   * Uses Database Connection Pool internally.
-   * 
-   * @param parameters
-   */
-  public MyDatabase(final DatabaseParameters parameters) {
-    this.url = parameters.getURL();
-    this.username = parameters.getUsername();
-    this.password = parameters.getPassword();
-    this.pool = new Dbcp2ConnectionPool(parameters);
+  Database(final String jdbcUrl, final String username, final String password) {
+    this.url = jdbcUrl;
+    this.username = username;
+    this.password = password;
+    this.pool = new HikariCpConnectionPool(jdbcUrl, username, password);
   }
 
-  public void submitQueriesAndReadResults() {
-    String query = "SELECT * FROM Customer";
+  public String submitQueryAndGetResult(final String query) {
+    StringBuilder sb = new StringBuilder();
     try (Connection conn = pool.getDatabaseConnection();
         Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(query)) {
-      // Process Results
+            ResultSet rs = stmt.executeQuery(query)) {
       while (rs.next()) {
-        // Print Columns
-        System.out.print(rs.getInt("Customer_ID") + " ");
-        System.out.print(rs.getString("NAME") + " ");
-        System.out.print(rs.getString("EMAIL") + " ");
-        System.out.println(rs.getString("PHONE") + " ");
+        sb.append(rs.getInt("Customer_ID")).append(" ");
+        sb.append(rs.getString("NAME")).append(" ");
+        sb.append(rs.getString("EMAIL")).append(" ");
+        sb.append(rs.getString("PHONE")).append(" ");
       }
     } catch (SQLException ex) {
       logSQLException(ex);
     }
+    return sb.toString().trim();
   }
 
-  public void constructAndUseStatement() {
+  public String constructAndUseStatement(final String query) {
+    StringBuilder sb = new StringBuilder();
     try (Connection conn = pool.getDatabaseConnection();
             Statement stmt = conn.createStatement()) {
       ResultSet rs;
       int numRows;
-      boolean status = stmt.execute("SELECT * FROM Customer WHERE NAME LIKE 'B%'"); // True if there
-                                                                                    // is a ResulSet
-      if (status) { // True
-        rs = stmt.getResultSet(); // Get the ResulSet
-        processResultSet(rs);
+      boolean status = stmt.execute(query); // True if there is a ResulSet
+      if (status) {
+        rs = stmt.getResultSet();
+        sb.append(processResultSet(rs));
       } else {
         numRows = stmt.getUpdateCount(); // Get the update count
         if (numRows == -1) { // If -1, there are no results
-          System.out.println("No results");
+          sb.append("No results");
         } else { // else, print the number of
           // rows affected
-          System.out.println(numRows + " rows affected.");
+          sb.append(numRows).append(" rows affected.");
         }
       }
     } catch (SQLException ex) {
       logSQLException(ex);
     }
+    return sb.toString().trim();
   }
 
-  private void processResultSet(final ResultSet rs) throws SQLException {
+  private String processResultSet(final ResultSet rs) throws SQLException {
+    StringBuilder sb = new StringBuilder();
     while (rs.next()) {
-      // Print Columns
-      System.out.print(rs.getInt("CUSTOMER_ID") + " ");
-      System.out.print(rs.getString("NAME") + " ");
-      System.out.print(rs.getString("EMAIL") + " ");
-      System.out.println(rs.getString("PHONE") + " ");
+      sb.append(rs.getInt("Customer_ID")).append(" ");
+      sb.append(rs.getString("NAME")).append(" ");
+      sb.append(rs.getString("EMAIL")).append(" ");
+      sb.append(rs.getString("PHONE")).append(" ");
     }
+    return sb.toString().trim();
   }
 
   public void getInformationAboutResultSet() {
@@ -191,17 +193,19 @@ public class MyDatabase {
     }
   }
 
-  public void demonstrateGetRowCount() {
+  public int demonstrateGetRowCount() {
     String query = "SELECT Customer_ID, NAME, CITY FROM Customer";
     try (Connection conn = pool.getDatabaseConnection();
         Statement stmt =
             conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet rs = stmt.executeQuery(query)) {
-      int rowCount = MyDatabase.getRowCount(rs);
+      int rowCount = Database.getRowCount(rs);
       System.out.println("There are " + rowCount + " rows in CUSTOMER table.");
+      return rowCount;
     } catch (SQLException ex) {
       logSQLException(ex);
     }
+    return -1;
   }
 
   /**
@@ -345,19 +349,15 @@ public class MyDatabase {
     }
   }
 
-  private void getDriverInfo(final DatabaseMetaData dbmd) throws SQLException {
-    System.out.println("Driver Name: " + dbmd.getDriverName());
-    System.out.println("Driver Version: " + dbmd.getDriverVersion());
-    if (dbmd.supportsANSI92EntryLevelSQL()) {
-      System.out.println("Driver meets minimum requirements for SQL-92 support.");
-    } else {
-      System.out.println("Driver does not meet minimum requirements for SQL-92 support.");
-    }
-    if (dbmd.supportsSavepoints()) {
-      System.out.println("Driver supports Savepoints.");
-    } else {
-      System.out.println("Driver does not support Savepoints.");
-    }
+  private String getDriverInfo(final DatabaseMetaData dbmd) throws SQLException {
+    StringBuilder sb = new StringBuilder();
+    sb.append("Driver{");
+    sb.append("name=").append(dbmd.getDriverName());
+    sb.append(", version=").append(dbmd.getDriverVersion());
+    sb.append(", meets minimum requirements for SQL-92 support=").append(dbmd.supportsANSI92EntryLevelSQL());
+    sb.append(", supports savepoints=").append(dbmd.supportsSavepoints());
+    sb.append("}");
+    return sb.toString();
   }
 
   public void usePreparedStatement() {
@@ -447,8 +447,8 @@ public class MyDatabase {
     return conn;
   }
 
-  public void getPoolingDriverInfo() {
-    System.out.println("Pool info: " + pool.getPoolInfo());
+  public String getPoolingDriverInfo() {
+    return pool.getPoolInfo();
   }
 
 }
