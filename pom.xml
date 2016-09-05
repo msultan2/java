@@ -164,18 +164,12 @@
       </plugin>
       <!-- Fail the build for a POM that is not formatted according to the POM Code Convention of the Maven team -->
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>tidy-maven-plugin</artifactId>
-        <version>1.0.0</version>
-        <executions>
-          <execution>
-            <id>validate</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
+        <groupId>com.github.ekryd.sortpom</groupId>
+        <artifactId>sortpom-maven-plugin</artifactId>
+        <version>2.4.0</version>
+        <configuration>
+          <verifyFail>Stop</verifyFail>
+        <configuration>
       </plugin>
     </plugins>
   </build>
