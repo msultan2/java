@@ -170,6 +170,9 @@
         <executions>
           <execution>
             <phase>validate</phase>
+            <goals>
+              <goal>verify</goal>
+            </goals>
           </execution>
         </executions>
         <configuration>
