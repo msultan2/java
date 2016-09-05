@@ -169,7 +169,7 @@
         <version>2.4.0</version>
         <configuration>
           <verifyFail>Stop</verifyFail>
-        <configuration>
+        </configuration>
       </plugin>
     </plugins>
   </build>
