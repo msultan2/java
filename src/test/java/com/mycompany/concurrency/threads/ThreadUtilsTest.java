@@ -19,8 +19,13 @@ public class ThreadUtilsTest {
   }
 
   @Test
-  public void testDeterminingNumberOfThreads() {
-    assertTrue(instance.determiningNumberOfThreads() > 2);
+  public void testDetermineNumberOfCores() {
+    assertTrue(instance.determineNumberOfCores() > 2);
+  }
+
+  @Test
+  public void testDetermineTotalNumberOfThreadsNeeded() {
+    assertEquals(20, instance.determineTotalNumberOfThreadsNeeded(2, 0.9));
   }
 
 }
