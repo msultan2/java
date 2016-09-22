@@ -86,7 +86,7 @@
   <!-- Build Settings -->
   <build>
     <plugins>
-      <!-- FindBugs Maven Plugin (static analyser which looks for bugs) -->
+      <!-- FindBugs Static Analysis -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
@@ -108,7 +108,6 @@
               <groupId>com.h3xstream.findsecbugs</groupId>
               <artifactId>findsecbugs-plugin</artifactId>
               <version>LATEST</version>
-              <!-- Auto-update to the latest stable -->
             </plugin>
           </plugins>
         </configuration>
