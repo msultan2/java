@@ -28,7 +28,7 @@ import javax.sql.rowset.RowSetProvider;
  */
 public enum Database {
 
-  DERBY("jdbc:derby://localhost:1527/sample", "app", "app");
+  DERBY("jdbc:derby:memory:sample;create=true", "app", "app");
 
   private final String url;
   private final String username;
