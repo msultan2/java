@@ -4,6 +4,10 @@
  */
 package com.mycompany.db;
 
+import com.ninja_squad.dbsetup.DbSetup;
+import static com.ninja_squad.dbsetup.Operations.*;
+import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
+import com.ninja_squad.dbsetup.operation.Operation;
 import java.sql.ResultSet;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -28,6 +32,9 @@ public class DatabaseTest {
 
   @Before
   public void setUp() {
+    Operation operation = sequenceOf(CommonOperations.DELETE_ALL, CommonOperations.INSERT_REFERENCE_DATA);
+    DbSetup dbSetup = new DbSetup(new DriverManagerDestination("jdbc:derby:memory:sample;create=true", "app", "app"), operation);
+    dbSetup.launch();
   }
 
   @After
