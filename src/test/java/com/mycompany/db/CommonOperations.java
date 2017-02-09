@@ -5,6 +5,7 @@
 package com.mycompany.db;
 
 import static com.ninja_squad.dbsetup.Operations.*;
+import com.ninja_squad.dbsetup.operation.Operation;
 
 public class CommonOperations {
 
