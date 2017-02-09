@@ -27,7 +27,8 @@ public final class ScriptParameters {
     private String[] commandLineArguments;
     private Path workingDirectory;
     private long scriptJobTimeout = 60000;
-    private boolean executeInBackground = false; // SUPPRESS CHECKSTYLE ExplicitInitialization
+    // CHECKSTYLE IGNORE ExplicitInitialization FOR NEXT 1 LINES
+    private boolean executeInBackground = false;
 
     public Builder(final Path scriptFileLocation, int successfulExitValue) {
       this.scriptFileLocation = scriptFileLocation;

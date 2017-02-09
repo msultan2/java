@@ -45,9 +45,13 @@
         <property name="fileExtensions" value="java"/>
     </module>
     <!-- Checks that there is a newline at the end of each file. -->
-    <module name="NewlineAtEndOfFile"/>
+    <module name="NewlineAtEndOfFile"/>    
     <!-- Configure a filter to suppress audit events for check on any line with a comment SUPPRESS CHECKSTYLE Check -->
-    <module name="SuppressWithNearbyCommentFilter"/>
+    <module name="SuppressWithNearbyCommentFilter">
+      <property name="commentFormat" value="CHECKSTYLE IGNORE (\w+) FOR NEXT (\d+) LINES"/>
+      <property name="checkFormat" value="$1"/>
+      <property name="influenceFormat" value="$2"/>
+    </module>
     <!-- Separately transforms each of the Java source files into an abstract syntax tree and then hands the result
     over to each of its submodules which in turn have a look at certain aspects of the tree. -->
     <module name="TreeWalker">
