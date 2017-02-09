@@ -23,7 +23,13 @@
     <dependency>
       <groupId>org.apache.derby</groupId>
       <artifactId>derbyclient</artifactId>           
-      <version>10.12.1.1</version>
+      <version>10.13.1.1</version>
+    </dependency>
+    <!-- Contains the core Apache Derby database engine, which also includes the embedded JDBC driver. -->
+    <dependency>
+      <groupId>org.apache.derby</groupId>
+      <artifactId>derby</artifactId>           
+      <version>10.13.1.1</version>
     </dependency>
     <!-- Apache Commons DBCP, provides database connection pooling services. -->
     <dependency>
