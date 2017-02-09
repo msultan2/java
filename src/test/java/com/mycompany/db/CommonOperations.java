@@ -4,6 +4,8 @@
  */
 package com.mycompany.db;
 
+import static com.ninja_squad.dbsetup.Operations.*;
+
 public class CommonOperations {
 
   public static final Operation DELETE_ALL = deleteAllFrom("CUSTOMER", "VENDOR", "COUNTRY", "USER");
