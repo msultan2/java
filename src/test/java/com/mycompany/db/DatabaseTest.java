@@ -33,7 +33,7 @@ public class DatabaseTest {
   @Before
   public void setUp() {
     Operation operation = sequenceOf(CommonOperations.DELETE_ALL, CommonOperations.INSERT_REFERENCE_DATA);
-    DbSetup dbSetup = new DbSetup(new DriverManagerDestination("jdbc:derby:sample", "app", "app"), operation);
+    DbSetup dbSetup = new DbSetup(new DriverManagerDestination("jdbc:derby:memory:sample", "app", "app"), operation);
     dbSetup.launch();
   }
 
