@@ -6,6 +6,7 @@ package com.mycompany.db;
 
 import com.ninja_squad.dbsetup.DbSetup;
 import static com.ninja_squad.dbsetup.Operations.*;
+import com.ninja_squad.dbsetup.destination.Destination;
 import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
 import java.sql.ResultSet;
@@ -21,9 +22,8 @@ public class DatabaseTest {
 
   @BeforeClass
   public static void setUpClass() {
-    // Always start derby database first in order to connect
-    // or if running for the first time
-    // Netbeans -> Services -> Databases -> Java DB -> Create Sample Database...: sample
+    createCustomerTable();
+    createDiscountCodeTable();
   }
 
   @AfterClass
@@ -33,8 +33,33 @@ public class DatabaseTest {
   @Before
   public void setUp() {
     Operation operation = sequenceOf(CommonOperations.DELETE_ALL, CommonOperations.INSERT_REFERENCE_DATA);
-    DbSetup dbSetup = new DbSetup(new DriverManagerDestination("jdbc:derby:memory:myDb", "app", "app"), operation);
+    Destination destination = new DriverManagerDestination("jdbc:derby:memory:myDB;create=true", "app", "app");
+    DbSetup dbSetup = new DbSetup(destination, operation);
     dbSetup.launch();
+  }
+
+  private static void createCustomerTable() {
+    String createTable = "CREATE TABLE CUSTOMER ("
+            + "CUSTOMER_ID INTEGER PRIMARY KEY NOT NULL, "
+            + "DISCOUNT_CODE CHARACTER(1) NOT NULL, "
+            + "ZIP VARCHAR(10) NOT NULL, "
+            + "\"NAME\" VARCHAR(30), "
+            + "ADDRESSLINE1 VARCHAR(30), "
+            + "ADDRESSLINE2 VARCHAR(30), "
+            + "CITY VARCHAR(25), "
+            + "STATE CHARACTER(2), "
+            + "PHONE CHARACTER(12), "
+            + "FAX CHARACTER(12), "
+            + "EMAIL VARCHAR(40), "
+            + "CREDIT_LIMIT INTEGER )";
+    Database.DERBY.execute(createTable);
+  }
+
+  private static void createDiscountCodeTable() {
+    String createTable = "CREATE TABLE DISCOUNT_CODE ("
+            + "DISCOUNT_CODE CHARACTER(1) PRIMARY KEY  NOT NULL, "
+            + "RATE DECIMAL(4,2) )";
+    Database.DERBY.execute(createTable);
   }
 
   @After

@@ -28,7 +28,7 @@ import javax.sql.rowset.RowSetProvider;
  */
 public enum Database {
 
-  DERBY("jdbc:derby://localhost:1527/memory:myDB;create=true", "app", "app");
+  DERBY("jdbc:derby:memory:myDB;create=true", "app", "app");
 
   private final String url;
   private final String username;
@@ -40,6 +40,15 @@ public enum Database {
     this.username = username;
     this.password = password;
     this.pool = new HikariCpConnectionPool(jdbcUrl, username, password);
+  }
+
+  public void execute(final String query) {
+    try (Connection conn = pool.getDatabaseConnection();
+            Statement stmt = conn.createStatement();) {
+      stmt.execute(query);
+    } catch (SQLException ex) {
+      logSQLException(ex);
+    }
   }
 
   public String submitQueryAndGetResult(final String query) {

@@ -7,12 +7,15 @@ package com.mycompany.db;
 import static com.ninja_squad.dbsetup.Operations.*;
 import com.ninja_squad.dbsetup.operation.Operation;
 
-public class CommonOperations {
-
-  public static final Operation DELETE_ALL = deleteAllFrom("CUSTOMER", "VENDOR", "COUNTRY", "USER");
+public final class CommonOperations {
   
+  private CommonOperations() {}
+
+  public static final Operation DELETE_ALL = deleteAllFrom("CUSTOMER", "DISCOUNT_CODE");
+  
+  // CHECKSTYLE IGNORE LineLength FOR NEXT 17 LINES
   public static final Operation INSERT_REFERENCE_DATA =
-    sequenceOf(
+      sequenceOf(
       insertInto("CUSTOMER")
         .columns("CUSTOMER_ID", "DISCOUNT_CODE", "ZIP", "NAME", "ADDRESSLINE1", "ADDRESSLINE2", "CITY", "STATE", "PHONE", "FAX", "EMAIL", "CREDIT_LIMIT")
         .values(1, "N", "95117", "Jumbo Eagle Corp", "111 E. Las Olivas Blvd", "Suite 51", "Fort Lauderdale", "FL", "305-555-0188", "305-555-0189", "jumboeagle@example.com", 100000)
@@ -29,10 +32,12 @@ public class CommonOperations {
         .values(409, "L", "10095", "Old Media Productions", "4400 527th Street", "Suite 562", "New York", "NY", "212-555-0110", "212-555-0111", "www.oldmedia.example.com", 10000)
         .values(410, "M", "10096", "Yankee Computer Repair Ltd", "9653 211th Ave", "Floor 4", "New York", "NY", "212-555-0191", "212-555-0197", "www.nycompltd@repair.example.com", 25000)
         .build(),
-      insertInto("USER")
-        .columns("ID", "LOGIN", "NAME")
-        .values(1L, "jbnizet", "Jean-Baptiste Nizet")
-        .values(2L, "clacote", "Cyril Lacote")
+      insertInto("DISCOUNT_CODE")
+        .columns("DISCOUNT_CODE", "RATE")
+        .values("H", 16)
+        .values("M", 11)
+        .values("L", 7)
+        .values("N", 0)
         .build());
 
 }
