@@ -9,3 +9,4 @@ pipelines:
           - mvn --version
           - mvn -B -T 1C clean package
           - mvn -B versions:display-dependency-updates
+          - curl -sSL https://download.sourceclear.com/ci.sh | sh
