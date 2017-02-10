@@ -7,5 +7,5 @@ pipelines:
     - step:
         script: # Modify the commands below to build your repository.     
           - mvn --version
-          - mvn -X -e -T 1C -B clean package
+          - mvn -B -T 1C clean package
           - mvn -B versions:display-dependency-updates
