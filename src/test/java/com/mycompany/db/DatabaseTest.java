@@ -95,12 +95,10 @@ public class DatabaseTest {
     fail("The test case is a prototype.");
   }
 
-  @Ignore("Not implemented yet")
   @Test
   public void testPrintReport() {
     System.out.println("printReport");
-    Database instance = null;
-    instance.printReport();
+    Database.DERBY.printReport();
     // TODO review the generated test code and remove the default call to fail.
     fail("The test case is a prototype.");
   }
