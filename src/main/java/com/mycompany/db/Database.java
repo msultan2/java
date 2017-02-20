@@ -331,7 +331,7 @@ public enum Database {
       DatabaseMetaData dbmd = conn.getMetaData();
       getColumns(dbmd);
       getProcedures(dbmd);
-      getDriverInfo(dbmd);
+      System.out.println(getDriverInfo(dbmd));
     } catch (SQLException ex) {
       logSQLException(ex);
     }
