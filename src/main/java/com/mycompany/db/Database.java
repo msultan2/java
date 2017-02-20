@@ -35,7 +35,7 @@ public enum Database {
   private final String password;
   private final DatabaseConnectionPool pool;
 
-  private Database(final String jdbcUrl, final String username, final String password) {
+  Database(final String jdbcUrl, final String username, final String password) {
     this.url = jdbcUrl;
     this.username = username;
     this.password = password;
