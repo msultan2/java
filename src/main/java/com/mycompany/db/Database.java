@@ -5,6 +5,7 @@
 package com.mycompany.db;
 
 import static com.mycompany.db.MyDatabaseLogger.*;
+import static java.lang.System.lineSeparator;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
@@ -326,36 +327,42 @@ public enum Database {
     }
   }
 
-  public void getInformationAboutDatabase() {
+  public String getInformationAboutDatabase() {
+    StringBuilder sb = new StringBuilder();
     try (Connection conn = pool.getDatabaseConnection()) {
       DatabaseMetaData dbmd = conn.getMetaData();
-      getColumns(dbmd);
-      getProcedures(dbmd);
-      System.out.println(getDriverInfo(dbmd));
+      sb.append("Columns info:").append(lineSeparator().append(getColumns(dbmd)).append(lineSeparator();
+      sb.append("Procedures:").append(lineSeparator().append(getProcedures(dbmd).toString()).append(lineSeparator();
+      sb.append("Driver info:").append(lineSeparator().append(getDriverInfo(dbmd));
     } catch (SQLException ex) {
       logSQLException(ex);
     }
+    return sb.toString();
   }
 
-  private void getColumns(final DatabaseMetaData dbmd) throws SQLException {
+  private String getColumns(final DatabaseMetaData dbmd) throws SQLException {
+    StringBuilder sb = new StringBuilder();
     // Get a ResultSet for any catalog (null) in the APP schema for all
     // tables (%) for all columns (%)
     ResultSet rs = dbmd.getColumns(null, "APP", "%", "%");
     while (rs.next()) {
-      System.out.print("Table Name: " + rs.getString("TABLE_NAME") + " ");
-      System.out.print("Column Name: " + rs.getString("COLUMN_NAME") + " ");
-      System.out.print("Type Name: " + rs.getString("TYPE_NAME") + " ");
-      System.out.println("Column Size: " + rs.getString("COLUMN_SIZE"));
+      sb.append("Table Name: ").append(rs.getString("TABLE_NAME").append(" ");
+      sb.append("Column Name: ").append(rs.getString("COLUMN_NAME").append(" ");
+      sb.append("Type Name: ").append(rs.getString("TYPE_NAME").append(" ");
+      sb.append("Column Size: ").append(rs.getString("COLUMN_SIZE").append(lineSeparator());
     }
+    return sb.toString();
   }
 
-  private void getProcedures(final DatabaseMetaData dbmd) throws SQLException {
+  private List<String> getProcedures(final DatabaseMetaData dbmd) throws SQLException {
+    List<String> procedures = new ArrayList<>();
     // Get a ResultSet of all the stored procedures in any catalog (null) in
     // any schema (null) with wildcard name (%)
     ResultSet rs = dbmd.getProcedures(null, null, "%");
     while (rs.next()) {
-      System.out.println("Procedure Name: " + rs.getString("PROCEDURE_NAME"));
+      procedures.add(rs.getString("PROCEDURE_NAME"));
     }
+    return procedures;
   }
 
   private String getDriverInfo(final DatabaseMetaData dbmd) throws SQLException {
