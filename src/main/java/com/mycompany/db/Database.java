@@ -346,10 +346,10 @@ public enum Database {
     // tables (%) for all columns (%)
     ResultSet rs = dbmd.getColumns(null, "APP", "%", "%");
     while (rs.next()) {
-      sb.append("Table Name: ").append(rs.getString("TABLE_NAME").append(" ");
-      sb.append("Column Name: ").append(rs.getString("COLUMN_NAME").append(" ");
-      sb.append("Type Name: ").append(rs.getString("TYPE_NAME").append(" ");
-      sb.append("Column Size: ").append(rs.getString("COLUMN_SIZE").append(lineSeparator());
+      sb.append("Table Name: ").append(rs.getString("TABLE_NAME")).append(" ");
+      sb.append("Column Name: ").append(rs.getString("COLUMN_NAME")).append(" ");
+      sb.append("Type Name: ").append(rs.getString("TYPE_NAME")).append(" ");
+      sb.append("Column Size: ").append(rs.getString("COLUMN_SIZE")).append(lineSeparator());
     }
     return sb.toString();
   }
