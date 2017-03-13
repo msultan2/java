@@ -10,6 +10,7 @@ import com.ninja_squad.dbsetup.destination.Destination;
 import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
 import java.sql.ResultSet;
+import static org.hamcrest.CoreMatchers.containsString;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -153,10 +154,10 @@ public class DatabaseTest {
 
   @Test
   public void testGetInformationAboutDatabase() {
-    System.out.println("getInformationAboutDatabase");
-    Database.DERBY.getInformationAboutDatabase();
-    // TODO review the generated test code and remove the default call to fail.
-    fail("The test case is a prototype.");
+    String info = Database.DERBY.getInformationAboutDatabase();
+    assertThat(info, containsString("Columns info:"));
+    assertThat(info, containsString("Procedures:"));
+    assertThat(info, containsString("Driver info:"));
   }
 
   @Ignore("Not implemented yet")
