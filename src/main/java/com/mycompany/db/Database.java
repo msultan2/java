@@ -331,9 +331,9 @@ public enum Database {
     StringBuilder sb = new StringBuilder();
     try (Connection conn = pool.getDatabaseConnection()) {
       DatabaseMetaData dbmd = conn.getMetaData();
-      sb.append("Columns info:").append(lineSeparator().append(getColumns(dbmd)).append(lineSeparator();
-      sb.append("Procedures:").append(lineSeparator().append(getProcedures(dbmd).toString()).append(lineSeparator();
-      sb.append("Driver info:").append(lineSeparator().append(getDriverInfo(dbmd));
+      sb.append("Columns info:").append(lineSeparator()).append(getColumns(dbmd)).append(lineSeparator());
+      sb.append("Procedures:").append(lineSeparator()).append(getProcedures(dbmd).toString()).append(lineSeparator());
+      sb.append("Driver info:").append(lineSeparator()).append(getDriverInfo(dbmd));
     } catch (SQLException ex) {
       logSQLException(ex);
     }
