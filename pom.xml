@@ -140,10 +140,8 @@
             </goals>
           </execution>
         </executions>
-        <!-- Removed once the plugin uses PMD 5.4.0 https://sourceforge.net/p/pmd/bugs/1420/ -->
         <configuration>
           <excludes>
-            <exclude>com/mycompany/collections/comparator/Person.java</exclude>
             <exclude>**/generated/*.java</exclude>
           </excludes>
         </configuration>
@@ -166,7 +164,7 @@
           <dependency>
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
-            <version>7.5.1</version>
+            <version>7.6</version>
           </dependency>
         </dependencies>
         <configuration>
