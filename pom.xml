@@ -106,7 +106,9 @@
           <source>1.8</source>
           <target>1.8</target>
           <showWarnings>true</showWarnings>
-          <failOnWarning>true</failOnWarning>
+          <!-- Disabled till issue is resolved:
+          https://github.com/rzwitserloot/lombok/issues/1339
+          <failOnWarning>true</failOnWarning> -->
           <compilerArgs>
             <arg>-Xlint:all</arg>
           </compilerArgs>
