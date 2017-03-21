@@ -106,7 +106,10 @@
           <source>1.8</source>
           <target>1.8</target>
           <showWarnings>true</showWarnings>
-          <failOnWarning>true</failOnWarning>          
+          <failOnWarning>true</failOnWarning>
+          <compilerArgs>
+            <arg>-Xlint:all</arg>
+          </compilerArgs>
         </configuration>
       </plugin>
       <!-- FindBugs Static Analysis -->
