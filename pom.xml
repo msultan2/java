@@ -105,6 +105,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.6.1</version>
         <configuration>
+          <showDeprecation>true</showDeprecation>
+          <showWarnings>true</showWarnings>
           <compilerArgs>
             <arg>-Werror</arg>
             <arg>-Xlint:all</arg>
