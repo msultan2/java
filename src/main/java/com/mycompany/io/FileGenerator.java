@@ -15,18 +15,20 @@ import java.util.List;
 public class FileGenerator {
 
   private static final int NUMBER_OF_LINES = 700_000;
-  private static final List<String> EXAMPLE_LINES = new ArrayList<String>() {
-    {
-      add("Blackened Recordings ");
-      add("Divergent Series: Insurgent");
-      add("Google Something");
-      add("Pixels Movie Money");
-      add("X Ambassadors");
-      add("Power Path Pro Advanced");
-      add("Something CYRFZQ");
-      add("");
-    }
-  };
+  private static final List<String> EXAMPLE_LINES = initializeExampleLines();
+
+  private static List<String> initializeExampleLines() {
+    List<String> exampleLines = new ArrayList<>();
+    exampleLines.add("Blackened Recordings ");
+    exampleLines.add("Divergent Series: Insurgent");
+    exampleLines.add("Google Something");
+    exampleLines.add("Pixels Movie Money");
+    exampleLines.add("X Ambassadors");
+    exampleLines.add("Power Path Pro Advanced");
+    exampleLines.add("Something CYRFZQ");
+    exampleLines.add("");
+    return exampleLines;
+  }
 
   public void generateFile(final Path file) {
     try (BufferedWriter writer = Files.newBufferedWriter(file)) {

@@ -33,7 +33,7 @@ public class MyCollection {
   }
 
   // TODO
-  public static void processEachElement(final Collection collection, final Consumer consumer) {
+  public static void processEachElement(final Collection<String> collection, final Consumer<String> consumer) {
     collection.forEach(consumer);
   }
 

@@ -9,7 +9,6 @@ import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.NetworkInterface;
-import java.net.Socket;
 import java.net.SocketException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -17,6 +16,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javaslang.control.Try;
 import javax.net.ssl.SSLSocketFactory;
 
 public final class NetworkUtils {
@@ -96,13 +96,7 @@ public final class NetworkUtils {
   }
 
   public static boolean isHostAvailable(final String host) {
-    try (Socket socket = SSLSocketFactory.getDefault().createSocket(host, 443)) {
-      return true;
-    } catch (IOException ex) {
-      System.err.println("Failed to check if host " + host + " is available.");
-      System.err.println("Message: " + ex.getMessage());
-    }
-    return false;
+    return Try.of(() -> SSLSocketFactory.getDefault().createSocket(host, 443)).isSuccess();
   }
 
   public static boolean isHostContentAvailable(final String host) {

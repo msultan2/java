@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import org.apache.commons.dbcp2.ConnectionFactory;
 import org.apache.commons.dbcp2.DriverManagerConnectionFactory;
+import org.apache.commons.dbcp2.PoolableConnection;
 import org.apache.commons.dbcp2.PoolableConnectionFactory;
 import org.apache.commons.dbcp2.PoolingDriver;
 import org.apache.commons.pool2.ObjectPool;
@@ -39,9 +40,8 @@ public class Dbcp2ConnectionPool implements DatabaseConnectionPool {
    */
   private void createPoolingDriver(final String jdbcUrl, final String username, final String password) {
     ConnectionFactory connectionFactory = new DriverManagerConnectionFactory(jdbcUrl, username, password);
-    PoolableConnectionFactory poolableConnectionFactory =
-        new PoolableConnectionFactory(connectionFactory, null);
-    ObjectPool connectionPool = new GenericObjectPool(poolableConnectionFactory);
+    PoolableConnectionFactory poolableConnectionFactory = new PoolableConnectionFactory(connectionFactory, null);
+    ObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<>(poolableConnectionFactory);
     poolableConnectionFactory.setPool(connectionPool);
     this.driver = new PoolingDriver();
     driver.registerPool(CONNECTION_POOL_NAME, connectionPool);

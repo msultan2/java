@@ -5,6 +5,7 @@
 package com.mycompany.net.ftp;
 
 import java.io.IOException;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import org.apache.commons.io.FileUtils;
@@ -50,7 +51,7 @@ public class FtpServerMock {
   }
 
   private String readFileToStringIncludingNewlineCharacter(final Path path) throws IOException {
-    return FileUtils.readFileToString(path.toFile());
+    return FileUtils.readFileToString(path.toFile(), UTF_8);
   }
 
   public void startServer() {

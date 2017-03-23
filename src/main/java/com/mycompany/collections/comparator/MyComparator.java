@@ -117,7 +117,7 @@ public final class MyComparator {
     people.forEach(System.out::println);
   }
   
-  public static void printPeople(final String message, final Map people) {
+  public static void printPeople(final String message, final Map<?, ?> people) {
     System.out.println(message + people);
   }
 
