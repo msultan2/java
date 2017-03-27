@@ -137,6 +137,11 @@
               <artifactId>findsecbugs-plugin</artifactId>
               <version>LATEST</version>
             </plugin>
+            <plugin>
+              <groupId>com.mebigfatguy.fb-contrib</groupId>
+              <artifactId>fb-contrib</artifactId>
+              <version>6.8.4</version>
+            </plugin>
           </plugins>
         </configuration>
       </plugin>
