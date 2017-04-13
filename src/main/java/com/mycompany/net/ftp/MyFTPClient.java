@@ -145,11 +145,9 @@ public class MyFTPClient {
 
     FTPClient ftp = new FTPClient();
     try {
-      if (startNewFTPSessioin(ftp, ftpProperties.getHostname(), ftpProperties.getPort(),
-          ftpProperties.getUsername(), ftpProperties.getPassword(),
-          ftpProperties.isPassiveLocalDataConnectionMode())) {
-        return downLoadFile(ftp, ftpProperties.getDirectory(), remoteFileName,
-            localDirectory.toAbsolutePath());
+      if (startNewFTPSessioin(ftp, ftpProperties.getHostname(), ftpProperties.getPort(), ftpProperties.getUsername(),
+          ftpProperties.getPassword(), ftpProperties.isPassiveLocalDataConnectionMode())) {
+        return downLoadFile(ftp, ftpProperties.getDirectory(), remoteFileName, localDirectory.toAbsolutePath());
       }
     } catch (IOException ex) {
       if (portIsNotDefined(ftpProperties.getPort())) {
@@ -174,13 +172,17 @@ public class MyFTPClient {
       numberOfBytesReadOrWritten = Files.copy(in, localFile);
     }
 
+    return returnAndLogResult(numberOfBytesReadOrWritten, remoteFileName, localFile);
+  }
+
+  private boolean returnAndLogResult(final long numberOfBytesReadOrWritten, final String remoteFileName, 
+          final Path localFile) {
     if (fileDownloadedSuccessfully(numberOfBytesReadOrWritten)) {
       logFileDownloadedSuccessfully(remoteFileName, localFile);
       return true;
-    } else {
-      logFileDownloadFailed(remoteFileName);
-      return false;
     }
+    logFileDownloadFailed(remoteFileName);
+    return false;
   }
 
   private boolean fileDownloadedSuccessfully(final long numberOfBytesReadOrWritten) {

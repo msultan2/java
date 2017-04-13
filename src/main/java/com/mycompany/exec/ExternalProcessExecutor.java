@@ -35,7 +35,7 @@ public final class ExternalProcessExecutor {
     }
 
     try {
-      System.out.println("Preparing script job: " + parameters.toString());
+      System.out.println("Preparing script job: " + parameters);
       ScriptResultHandler scriptResult = execute(parameters);
       scriptResult.waitFor();
       scriptExecuted = true;
@@ -47,8 +47,7 @@ public final class ExternalProcessExecutor {
     return scriptExecuted;
   }
 
-  private ScriptResultHandler execute(final ScriptParameters parameters) throws ExecuteException,
-      IOException {
+  private ScriptResultHandler execute(final ScriptParameters parameters) throws IOException {
     setExecuteOutput(Collections.emptyList());
 
     ExecuteWatchdog watchdog = new ExecuteWatchdog(parameters.getScriptJobTimeout());
@@ -109,7 +108,7 @@ public final class ExternalProcessExecutor {
   }
 
   private void logException(final Exception ex, final ScriptParameters parameters) {
-    System.err.println("Executing of the following script failed:" + parameters.toString());
+    System.err.println("Executing of the following script failed:" + parameters);
     System.err.println("Message: " + ex.getMessage());
   }
 

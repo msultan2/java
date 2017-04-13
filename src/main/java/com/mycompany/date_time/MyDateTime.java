@@ -4,6 +4,7 @@
  */
 package com.mycompany.date_time;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.Clock;
 import java.time.DayOfWeek;
 import java.time.Instant;
@@ -261,6 +262,8 @@ public class MyDateTime {
     // return inst.atZone(ZoneId.systemDefault());
   }
 
+  @SuppressFBWarnings(value = "OCP_OVERLY_CONCRETE_PARAMETER",
+          justification = "The design of the API encourages the use of ZonedDateTime rather than ChronoZonedDateTime")
   public Instant convertToInstant(final ZonedDateTime zdt) {
     return zdt.toInstant();
   }

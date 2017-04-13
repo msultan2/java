@@ -60,10 +60,10 @@ public enum Database {
         Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query)) {
       while (rs.next()) {
-        sb.append(rs.getInt("Customer_ID")).append(" ");
-        sb.append(rs.getString("NAME")).append(" ");
-        sb.append(rs.getString("EMAIL")).append(" ");
-        sb.append(rs.getString("PHONE")).append(" ");
+        sb.append(rs.getInt("Customer_ID")).append(' ');
+        sb.append(rs.getString("NAME")).append(' ');
+        sb.append(rs.getString("EMAIL")).append(' ');
+        sb.append(rs.getString("PHONE")).append(' ');
       }
     } catch (SQLException ex) {
       logSQLException(ex);
@@ -99,10 +99,10 @@ public enum Database {
   private String processResultSet(final ResultSet rs) throws SQLException {
     StringBuilder sb = new StringBuilder();
     while (rs.next()) {
-      sb.append(rs.getInt("Customer_ID")).append(" ");
-      sb.append(rs.getString("NAME")).append(" ");
-      sb.append(rs.getString("EMAIL")).append(" ");
-      sb.append(rs.getString("PHONE")).append(" ");
+      sb.append(rs.getInt("Customer_ID")).append(' ');
+      sb.append(rs.getString("NAME")).append(' ');
+      sb.append(rs.getString("EMAIL")).append(' ');
+      sb.append(rs.getString("PHONE")).append(' ');
     }
     return sb.toString().trim();
   }
@@ -127,23 +127,18 @@ public enum Database {
   }
 
   public void printReport() {
-    String query = "SELECT Customer_ID, NAME, CITY FROM Customer";
     try (Connection conn = pool.getDatabaseConnection();
         Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(query)) {
+        ResultSet rs = stmt.executeQuery("SELECT Customer_ID, NAME, CITY FROM Customer")) {
       ResultSetMetaData rsmd = rs.getMetaData();
       int colCount = rsmd.getColumnCount();
-      String col;
-      String colData;
 
-      for (int i = 1; i <= colCount; i++) {
-        // Left justify column name padded with size spaces
-        col = leftJustify(rsmd.getColumnName(i), rsmd.getColumnDisplaySize(i));
-        System.out.print(col);
-      }
+      leftJustifyColumnNamesPaddedWithSizeSpaces(colCount, rsmd);
 
       System.out.println(); // Print a linefeed
 
+      String col;
+      String colData;
       while (rs.next()) {
         for (int i = 1; i <= colCount; i++) {
           if (rs.getObject(i) != null) {
@@ -160,6 +155,15 @@ public enum Database {
       }
     } catch (SQLException ex) {
       logSQLException(ex);
+    }
+  }
+
+  private void leftJustifyColumnNamesPaddedWithSizeSpaces(final int colCount, final ResultSetMetaData rsmd)
+          throws SQLException {
+    String col;
+    for (int i = 1; i <= colCount; i++) {
+      col = leftJustify(rsmd.getColumnName(i), rsmd.getColumnDisplaySize(i));
+      System.out.print(col);
     }
   }
 
@@ -334,7 +338,7 @@ public enum Database {
     try (Connection conn = pool.getDatabaseConnection()) {
       DatabaseMetaData dbmd = conn.getMetaData();
       sb.append("Columns info:").append(lineSeparator()).append(getColumns(dbmd)).append(lineSeparator());
-      sb.append("Procedures:").append(lineSeparator()).append(getProcedures(dbmd).toString()).append(lineSeparator());
+      sb.append("Procedures:").append(lineSeparator()).append(getProcedures(dbmd)).append(lineSeparator());
       sb.append("Driver info:").append(lineSeparator()).append(getDriverInfo(dbmd));
     } catch (SQLException ex) {
       logSQLException(ex);
@@ -348,9 +352,9 @@ public enum Database {
     // tables (%) for all columns (%)
     ResultSet rs = dbmd.getColumns(null, "APP", "%", "%");
     while (rs.next()) {
-      sb.append("Table Name: ").append(rs.getString("TABLE_NAME")).append(" ");
-      sb.append("Column Name: ").append(rs.getString("COLUMN_NAME")).append(" ");
-      sb.append("Type Name: ").append(rs.getString("TYPE_NAME")).append(" ");
+      sb.append("Table Name: ").append(rs.getString("TABLE_NAME")).append(' ');
+      sb.append("Column Name: ").append(rs.getString("COLUMN_NAME")).append(' ');
+      sb.append("Type Name: ").append(rs.getString("TYPE_NAME")).append(' ');
       sb.append("Column Size: ").append(rs.getString("COLUMN_SIZE")).append(lineSeparator());
     }
     return sb.toString();
@@ -374,7 +378,7 @@ public enum Database {
     sb.append(", version=").append(dbmd.getDriverVersion());
     sb.append(", meets minimum requirements for SQL-92 support=").append(dbmd.supportsANSI92EntryLevelSQL());
     sb.append(", supports savepoints=").append(dbmd.supportsSavepoints());
-    sb.append("}");
+    sb.append('}');
     return sb.toString();
   }
 

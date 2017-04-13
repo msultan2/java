@@ -4,9 +4,12 @@
  */
 package com.mycompany.collections.comparator;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+@SuppressFBWarnings(value = "USBR_UNNECESSARY_STORE_BEFORE_RETURN",
+        justification = "Person.hashCode() is auto-generated")
 @Data
 @AllArgsConstructor
 public class Person {

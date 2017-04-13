@@ -95,10 +95,10 @@ public class MyCollection {
             collection.stream()
             .filter(element -> element.startsWith(startingLetter))
             .findFirst();
-    System.out.println(String.format("An element starting with %s: %s", startingLetter,
-        foundElement.orElse("No element found")));
+    String foundElementValue = foundElement.orElse("No element found");
+    System.out.println(String.format("An element starting with %s: %s", startingLetter, foundElementValue));
     foundElement.ifPresent(element -> System.out.println("Hello " + element));
-    return foundElement.orElse("No element found");
+    return foundElementValue;
   }
 
   public int getTotalNumberOfCharactersInAllElements() {

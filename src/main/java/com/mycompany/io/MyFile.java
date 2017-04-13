@@ -5,6 +5,7 @@
 package com.mycompany.io;
 
 import java.io.IOException;
+import static java.lang.Boolean.FALSE;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -103,7 +104,7 @@ public final class MyFile {
    */
   public static Stream<Path> listHiddenFilesInDirectory(final Path directory) throws IOException {
     return Files.list(directory)
-            .filter(path -> Try.of(() -> Files.isHidden(path)).getOrElse(false));
+            .filter(path -> Try.of(() -> Files.isHidden(path)).getOrElse(FALSE));
   }
 
   /**
