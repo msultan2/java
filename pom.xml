@@ -7,11 +7,6 @@
   <artifactId>Java</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <!-- Environment Settings -->
-  <prerequisites>
-    <maven>3.3.9</maven>
-  </prerequisites>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
