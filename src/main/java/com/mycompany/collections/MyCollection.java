@@ -162,5 +162,10 @@ public class MyCollection {
       .map(String::toUpperCase)
       .collect(joining(", "));
   }
+  
+  @Override
+  public String toString() {
+    return collection.toString();
+  }
 
 }

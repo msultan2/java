@@ -4,6 +4,8 @@
  */
 package com.mycompany.concurrency.threads;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Creating a Thread and Putting It to Sleep. From OCA/OCP Java SE7 Programmer 1 & 2 Study Guide,
  * Chapter 13: Threads.
@@ -19,11 +21,11 @@ public class TheCount extends Thread {
     thread.start();
   }
 
+  @SuppressFBWarnings(value = "MDM_THREAD_YIELD", justification = "pause for 1 second")
   @Override
   public void run() {
     for (int i = 0; i <= N; i++) {
       try {
-        // pause for 1 second
         Thread.sleep(ONE_SECOND);
       } catch (InterruptedException ex) {
         System.err.println(ex);

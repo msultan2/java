@@ -4,6 +4,8 @@
  */
 package com.mycompany.concurrency.threads;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Helper class to execute other classes.
  */
@@ -15,6 +17,7 @@ public final class ThreadsLauncher {
     executeInSync();
   }
 
+  @SuppressFBWarnings(value = "LSYC_LOCAL_SYNCHRONIZED_COLLECTION", justification = "the reference is passed around")
   private static void executeInSync() {
     StringBuffer sb = new StringBuffer("A");
 

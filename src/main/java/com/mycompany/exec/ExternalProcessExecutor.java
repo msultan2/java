@@ -5,6 +5,7 @@
 package com.mycompany.exec;
 
 import com.mycompany.io.FileAccessibilityUtils;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public final class ExternalProcessExecutor {
     return resultHandler;
   }
 
-  private CommandLine buildCommandLine(final Path path, final String[] commandLineArguments) {
+  private CommandLine buildCommandLine(final Path path, final String... commandLineArguments) {
     CommandLine cmd = new CommandLine(path.toString());
     for (String argument : commandLineArguments) {
       cmd.addArgument(argument);
@@ -120,6 +121,8 @@ public final class ExternalProcessExecutor {
       this.watchdog = watchdog;
     }
 
+    @SuppressFBWarnings(value = "PCOA_PARTIALLY_CONSTRUCTED_OBJECT_ACCESS",
+            justification = "Requires a fix. Calls a library method")
     ScriptResultHandler(final int exitValue) {
       super.onProcessComplete(exitValue);
     }

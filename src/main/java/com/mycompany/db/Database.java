@@ -5,6 +5,7 @@
 package com.mycompany.db;
 
 import static com.mycompany.db.MyDatabaseLogger.*;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import static java.lang.System.lineSeparator;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -29,6 +30,8 @@ import javax.sql.rowset.RowSetProvider;
  * More info: OCA/OCP Java SE7 Programmer 1 & 2 Study Guide, Chapter 15: JDBC.
  *
  */
+@SuppressFBWarnings(value = {"SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE", "WEM_WEAK_EXCEPTION_MESSAGING"},
+          justification = "No need to sanitize queries or improve exception messages, used for demonstration only")
 public enum Database {
 
   DERBY("jdbc:derby:memory:myDB;create=true", "app", "app");

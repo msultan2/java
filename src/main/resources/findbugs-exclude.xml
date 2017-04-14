@@ -2,4 +2,10 @@
    <Match>
       <Bug pattern="SQL_INJECTION_JDBC" />
    </Match>
+   <Match>
+     <Bug pattern="IMC_IMMATURE_CLASS_NO_TOSTRING" />
+   </Match>
+   <Match>
+     <Bug pattern="OPM_OVERLY_PERMISSIVE_METHOD" />
+   </Match>
 </FindBugsFilter>

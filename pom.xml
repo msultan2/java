@@ -136,6 +136,7 @@
         <configuration>
           <excludeFilterFile>src/main/resources/findbugs-exclude.xml</excludeFilterFile>
           <effort>Max</effort>
+          <threshold>Low</threshold>
           <failOnError>true</failOnError>
           <plugins>
             <plugin>

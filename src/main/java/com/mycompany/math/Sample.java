@@ -5,6 +5,7 @@
 package com.mycompany.math;
 
 import static com.mycompany.math.SampleUtils.*;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
@@ -66,8 +67,8 @@ public final class Sample {
             .sum();
   }
 
+  @SuppressFBWarnings(value = "MDM_THREAD_YIELD", justification = "simulate long execution")
   private static int doubleValue(final int number) {
-    // simulate long execution
     try {
       Thread.sleep(ONE_SECOND);
     } catch (Exception ex) {

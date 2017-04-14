@@ -4,7 +4,8 @@
  */
 package com.mycompany.date_time;
 
-import java.time.Month;
+import static java.time.Month.APRIL;
+import static java.time.Month.AUGUST;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalQuery;
@@ -25,12 +26,12 @@ public class FamilyHolidays implements TemporalQuery<Boolean> {
     int day = temporal.get(ChronoField.DAY_OF_MONTH);
 
     // Disneyland over Spring Break
-    if (month == Month.APRIL.getValue() && day >= 3 && day <= 8) {
+    if (day >= 3 && day <= 8 && month == APRIL.getValue()) {
       return Boolean.TRUE;
     }
 
     // Smith family reunion on Lake Saugatuck
-    if (month == Month.AUGUST.getValue() && day >= 8 && day <= 14) {
+    if (day >= 8 && day <= 14 && month == AUGUST.getValue()) {
       return Boolean.TRUE;
     }
 
